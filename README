@@ -1,0 +1,36 @@
+===========================================================================
+
+    README file for Assignment 3 - HTTP Proxy
+
+           Name: Harshit Kedia
+ Username/Login: CS17B103
+ 
+===========================================================================
+
+DESCRIBE YOUR CODE HERE AND DESIGN DECISIONS YOU MADE
+
+__________________________________________________________________________
+
+Instructions to run:
+1)open a terminal on the current directory
+	$ make
+2)the makefile generates proxy.out
+3)run and specify port number as command line argument, as shown
+	$ ./proxy.out <port>
+4)Now the proxy server is up and running... open a new terminal window on the same directory
+5)use telnet to get websites, as folllowing
+	$ telnet localhost <port>
+	GET http://www.cse.iitm.ac.in/ HTTP/1.0 <press double enter>
+6) can use multiple similar terminal windows for concurrecy check 
+7)can also run the python scripts proxy_test to check, run as
+	$ python proxy_tester.py 127.0.0.1 <port>
+  			or
+	$ python proxy_tester_conc.py 127.0.0.1 <port>
+___________________________________________________________________________
+
+Implemented proxy.c 
+
+1)When proxy starts, it establishes a socket connection that it listens for incoming connections. The proxy listens on the port specified from the command line and waits for incoming client connections.
+2)The parsing library is used
+3)For every client, we fork a new process, which has file descriptors for the TCP stream, whereas parent process keeps waiting for further requests.
+4)if parsing is successful, we open a connection to hostname mentioned in request, and pass-on the received data to the client, now the connection is closed and the forked child  exits.
